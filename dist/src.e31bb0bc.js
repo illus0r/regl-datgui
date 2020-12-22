@@ -118,9 +118,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"shader.frag":[function(require,module,exports) {
-module.exports = "precision mediump float;\n#define GLSLIFY 1\nuniform vec4 color;\nvoid main() {\n\tgl_FragColor = color;\n}\n";
-},{}],"shader.vert":[function(require,module,exports) {
-module.exports = "precision mediump float;\n#define GLSLIFY 1\nattribute vec2 position;\nvoid main() {\n\tgl_Position = vec4(position, 0, 1);\n}\n";
+module.exports = "precision mediump float;\n#define GLSLIFY 1\nuniform vec4 color;\nvoid main() {\n\tgl_FragColor = vec4(vec3(color.gbr),1.);\n}\n";
 },{}],"../node_modules/regl/dist/regl.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
@@ -10617,18 +10615,17 @@ return wrapREGL;
 
 var _shader = _interopRequireDefault(require("./shader.frag"));
 
-var _shader2 = _interopRequireDefault(require("./shader.vert"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // TODO в 9 и 17 строки надо как-то импортнуть шейдеры из файлов shader.frag и shader.vert
+//import shaderVert from "./shader.vert";
 var regl = require('regl')();
 
 var drawTriangle = regl({
   // Shaders in regl are just strings.  You can use glslify or whatever you want
   // to define them.  No need to manually create shader objects.
   frag: _shader.default,
-  vert: _shader2.default,
+  vert: "precision mediump float;attribute vec2 position;void main() {\tgl_Position = vec4(position, 0, 1);}",
   attributes: {
     position: [[-1, 3], [3, -1], [-1, -1]]
   },
@@ -10652,7 +10649,7 @@ regl.frame(function (_ref) {
     color: [Math.cos(time * 0.1), Math.sin(time * 0.8), Math.cos(time * 0.3), 1]
   });
 });
-},{"./shader.frag":"shader.frag","./shader.vert":"shader.vert","regl":"../node_modules/regl/dist/regl.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./shader.frag":"shader.frag","regl":"../node_modules/regl/dist/regl.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -10680,7 +10677,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60367" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63603" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -10856,5 +10853,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/index.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+//# sourceMappingURL=/src.e31bb0bc.js.map
