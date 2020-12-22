@@ -1,0 +1,16 @@
+{
+  "name": "regl-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "parcel-bundler": "^1.12.4",
+    "regl": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "npx parcel server src/index.js",
+    "build": "npx parcel src/index.js"
+  },
+  "author": "Ivan Dianov"
+}
