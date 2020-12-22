@@ -1,6 +1,4 @@
 // TODO как-то импортнуть шейдеры в строки. Это нерабочий кусок, остался от вебпака
-import shaderFrag from 'raw-loader!glslify-loader!./shader.frag'
-import shaderVert from 'raw-loader!glslify-loader!./shader.vert'
 
 const regl = require('regl')()
 
@@ -8,8 +6,22 @@ const drawTriangle = regl({
 
   // Shaders in regl are just strings.  You can use glslify or whatever you want
   // to define them.  No need to manually create shader objects.
-  frag: shaderFrag,
-  vert: shaderVert,
+	frag: `
+precision mediump float;
+uniform vec4 color;
+void main() {
+	gl_FragColor = color;
+}
+
+	`,
+	vert: `
+precision mediump float;
+attribute vec2 position;
+void main() {
+	gl_Position = vec4(position, 0, 1);
+}
+
+	`,
 
   attributes: {
     position: [[-1, 3], [3, -1], [-1, -1]]
