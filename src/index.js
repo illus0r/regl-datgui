@@ -42,17 +42,16 @@ for(let key in params) {
 	
 }
 
-var obj = { 'Save image':function(){ 
-	let canvas = document.querySelector("canvas");
-	console.log(canvas)
-	var link = document.createElement('a');
-  link.download = 'filename.png';
-  link.href = canvas.toDataURL("image/png")
-  console.log(canvas.toDataURL("image/png"))
-	//let imageURI = canvas.toDataURL("image/jpg");
-  link.click();
-}}
-gui.add(obj,'Save image')
+var saveImageButtonObj = {
+	'Save image': () => { 
+		let canvas = document.querySelector("canvas");
+		var link = document.createElement('a');
+		link.download = 'image.png';
+		link.href = canvas.toDataURL("image/png")
+		link.click();
+	}
+}
+gui.add(saveImageButtonObj,'Save image')
 
 
 const setupQuad = regl({
