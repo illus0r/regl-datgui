@@ -1,9 +1,11 @@
 // TODO в 9 и 17 строки надо как-то импортнуть шейдеры из файлов shader.frag и shader.vert
 import shaderFrag from "./shader.frag";
+//import "./canvas-saver.js";
 
 const regl = require('regl')({
 	container: document.body,
-	pixelRatio: 1/8,
+	pixelRatio: 1/2,
+	attributes: {preserveDrawingBuffer: true,}
 })
 const dat = require('dat.gui')
 const gui = new dat.GUI()
@@ -40,6 +42,17 @@ for(let key in params) {
 	
 }
 
+var obj = { 'Save image':function(){ 
+	let canvas = document.querySelector("canvas");
+	console.log(canvas)
+	var link = document.createElement('a');
+  link.download = 'filename.png';
+  link.href = canvas.toDataURL("image/png")
+  console.log(canvas.toDataURL("image/png"))
+	//let imageURI = canvas.toDataURL("image/jpg");
+  link.click();
+}}
+gui.add(obj,'Save image')
 
 
 const setupQuad = regl({
